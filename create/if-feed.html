@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Choose a Service</title>
+    <!-- Font Awesome - Brands and Solid -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/brands.js" integrity="sha384-sCI3dTBIJuqT6AwL++zH7qL8ZdKaHpxU43dDt9SyOzimtQ9eyRhkG3B7KMl6AO19"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <!-- And JQuery and Popper -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- My stylesheet -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-custom">
+            <a class="navbar-brand" href="#">IFTTT</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Discover
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Applets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Activity</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">
+                            <i class="fas fa-user"></i> User</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div id="welcome">
+        <div id="trigger"></div>
+        <h1 class="display-4" style="font-weight: 600;">Choose Trigger</h1>
+        <p class="text-muted">Step 2 of 6</p>
+        <section id="trigger-options" class="row"></section>
+        <section id="trigger-fields">
+            <div class="list-option" style="display:none;">
+                <form method="post" name="form" action="if-feed-then.html">
+                    <div class="elem-info"></div>
+                    <label>Feed URL</label>
+                    <br>
+                    <!-- Input as type=url requires http:// in a URL so using text instead and as validation check -->
+                    <input type="text" name="feedURL" id="feedURL" required>
+                    <br>
+                    <button id="submitbtn" class="btn btn-light" type="submit">Create Trigger</button>
+                    <div id="error-msg"></div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        // This is for dynamic icon generation near 'Choose a trigger' header
+        // for (i = 0; i < list.length; i++) {
+        i = Number(window.location.href.split("?sid=").pop()) - 1;
+        //if ?sid= matches a list[i].id then execute this
+        if (window.location.href.indexOf("?sid=" + list[i].id) > -1) {
+            //Custom styling based on colour and relevant icon
+            newUL.appendChild(newLI).appendChild(newIcon);
+            newIcon.setAttribute('class', list[i].icon);
+            // Individually class this icon
+            newUL.className = "list-detail icon";
+            newUL.style.backgroundColor = list[i].colour;
+
+            for (k = 0; k < list[i].data.length; k++) {
+                let newUL = document.createElement("ul");
+                let newLI = document.createElement("li");
+                let newALink = document.createElement("a");
+
+                // Add custom styling and class names
+                newUL.style.backgroundColor = list[i].colour;
+                newUL.className = "list-detail col-sm-4 col-md-3";
+                // amend innerHTML with relevant title and info
+                newUL.innerHTML += "<h1>" + list[i].data[k].title + "</h1>" + "<br>" +
+                    "<span class=\"description\">" + list[i].data[k].info + "</span>"
+
+                //If List matches entry for Feed Information then get feed-info and populate.
+                if (list[i] === list[2]) {
+                    let newFeedInfo = document.getElementsByClassName("elem-info");
+                    newFeedInfo[0].innerHTML = "<h1>" + list[2].data[0].title + "</h1>" + "<br>" +
+                        "<span class=\"description\">" + list[2].data[0].info + "</span>" +
+                        "<small class=\"description\"> for feed URL requirements, visit the help page </small>";
+
+                    var currentDiv = document.getElementById("trigger-options");
+                    currentDiv.appendChild(newUL);
+
+                    let setUL = document.getElementsByClassName("list-detail");
+                    for (y = 0; y < setUL.length; y++) {
+                        // If ID is empty then assign one, if one already assigned then do not change it
+                        if (setUL[y].id === "") {
+                            setUL[y].id += list[i].data[k].key;
+                        } else {};
+
+                        // Modification of list-option parent of feedInfo to match colour of list[i] using JQuery
+                        $(".list-option").css({
+                            "backgroundColor": list[i].colour
+                        });
+
+                        // Get feedItem and feedMatches, if feedItem is clicked then hide feedItem and feedMatches and show feedInfo
+                        $("#new-feed-item").click(function () {
+                            $("#new-feed-item").css("display", "none");
+                            $("#new-feed-matches").css("display", "none");
+                            $(".list-option").css("display", "block");
+                        })
+                    }
+                }
+            }
+
+            var elemDesc = document.getElementsByClassName("description");
+            for (var i = 0; i < elemDesc.length; i++) {
+                elemDesc[i].style.color = "rgba(255,255,255,0.8)";
+            };
+
+            // Take div id of trigger and append new data to it
+            var currentDiv = document.getElementById("trigger");
+            currentDiv.appendChild(newUL);
+
+        }
+
+        console.log(storedFeed);
+
+        // };
+    </script>
+    <!-- JQuery Validation Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+    <script>
+        $(function () {
+            $("form").validate({
+                errorElement: 'div',
+                errorLabelContainer: '.errorTxt',
+                rules: {
+                    feedURL: {
+                        url: true
+                    }
+                },
+                messages: {
+                    feedURL: {
+                        required: "Please provide a valid URL"
+                    }
+                },
+                submitHandler: function (form) {
+                    // save feed URL to local storage
+                    var input = document.getElementById("feedURL");
+                    var storedFeed = window.localStorage.getItem("newFeedURL");
+                    window.localStorage.setItem("newFeedURL", input.value);
+                    form.submit();
+                }
+            });
+
+            if ($("form").valid() === true) {
+                $("#submitbtn").show();
+            } else {
+                $("#submitbtn").hide();
+            }
+
+        });
+    </script>
+</body>
+
+</html>

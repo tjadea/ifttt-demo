@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Choose a Service</title>
+    <!-- Font Awesome - Brands and Solid -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/brands.js" integrity="sha384-sCI3dTBIJuqT6AwL++zH7qL8ZdKaHpxU43dDt9SyOzimtQ9eyRhkG3B7KMl6AO19"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <!-- And JQuery and Popper -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- My stylesheet -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-custom">
+            <a class="navbar-brand" href="#">IFTTT</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Discover
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Applets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Activity</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">
+                            <i class="fas fa-user"></i> User</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div id="welcome">
+        <div id="trigger"></div>
+        <h1 class="display-4" style="font-weight: 600;">Choose Trigger</h1>
+        <p class="text-muted">Step 2 of 6</p>
+        <section id="trigger-options" class="row"></section>
+        <section id="trigger-fields">
+            <div class="list-option" style="display:none;">
+                <form method="post" action="summary.html">
+                    <div class="elem-info"></div>
+                    <label>Email Address</label>
+                    <br>
+                    <input type="email" id="emailADR" required>
+                    <br>
+                    <button id="submitbtn" class="btn btn-light" type="submit">Create Trigger</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        // This is for dynamic icon generation near 'Choose a trigger' header
+        // for (i = 0; i < actionList.length; i++) {
+        //if ?sid= matches a list[i].id then execute this
+        i = Number(window.location.href.split("?sid=").pop()) - 1;
+        if (window.location.href.indexOf("?sid=" + actionList[i].id) > -1) {
+
+            //Custom styling based on colour and relevant icon
+            newUL.appendChild(newLI).appendChild(newIcon);
+            newIcon.setAttribute('class', actionList[i].icon);
+            // Individually class this icon
+            newUL.className = "list-detail icon";
+            newUL.style.backgroundColor = actionList[i].colour;
+
+
+            for (k = 0; k < actionList[i].data.length; k++) {
+                let newUL = document.createElement("ul");
+                let newLI = document.createElement("li");
+                let newALink = document.createElement("a");
+
+                // Add custom styling and class names
+                newUL.style.backgroundColor = actionList[i].colour;
+                newUL.className = "list-detail col-sm-4 col-md-3";
+                // amend innerHTML with relevant title and info
+                newUL.innerHTML += "<h1>" + actionList[i].data[k].title + "</h1>" + "<br>" +
+                    "<span class=\"description\">" + actionList[i].data[k].info + "</span>"
+                //If List matches entry for email
+                if (actionList[i].id === 5) {
+                    let newFeedInfo = document.getElementsByClassName("elem-info");
+                    newFeedInfo[0].innerHTML = "<h1>" + actionList[4].data[0].title + "</h1>" + "<br>" +
+                        "<span class=\"description\">" + actionList[4].data[0].info + "</span>" +
+                        "<small class=\"description\"> for feed URL requirements, visit the help page </small>";
+
+                    var currentDiv = document.getElementById("trigger-options");
+                    currentDiv.appendChild(newUL);
+                }
+                let setUL = document.getElementsByClassName("list-detail");
+                for (y = 0; y < setUL.length; y++) {
+                    // If ID is empty then assign one, if one already assigned then do not change it
+                    if (setUL[y].id === "") {
+                        setUL[y].id = actionList[i].data[k].key;
+                    } else {};
+                }
+            }
+            // Modification of list-option parent of feedInfo to match colour of actionList[i] using JQuery
+            $(".list-option").css({
+                "backgroundColor": actionList[i].colour
+            });
+
+            // Get feedItem and feedMatches, if feedItem is clicked then hide feedItem and feedMatches and show feedInfo
+            $("#send-new-email").click(function () {
+                $("#send-new-email").css("display", "none");
+                $(".list-option").css("display", "block");
+            })
+
+            var elemDesc = document.getElementsByClassName("description");
+            for (var i = 0; i < elemDesc.length; i++) {
+                elemDesc[i].style.color = "rgba(255,255,255,0.8)";
+            };
+
+            // Take div id of trigger and append new data to it
+            var currentDiv = document.getElementById("trigger");
+            currentDiv.appendChild(newUL);
+
+        }
+        // };
+    </script>
+    <!-- JQuery Validation Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+    <script>
+        $(function () {
+            $("form").validate({
+                errorElement: 'div',
+                errorLabelContainer: '.errorTxt',
+                rules: {
+                    emailADR: {
+                        email: true
+                    }
+                },
+                messages: {
+                    emailADR: {
+                        required: "Please provide a valid Email"
+                    }
+                },
+                submitHandler: function (form) {
+                    // save email address to local storage
+                    var input = document.getElementById("emailADR");
+                    var storedEmail = window.localStorage.getItem("newEmailADR");
+                    window.localStorage.setItem("newEmailADR", input.value);
+                    form.submit();
+                }
+            });
+
+            $("form").on("change", function () {
+                if ($("form").valid() === true) {
+                    $("#submitbtn").show();
+                } else {
+                    $("#submitbtn").hide();
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

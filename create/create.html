@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Choose a Service</title>
+    <!-- Font Awesome - Brands and Solid -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/brands.js" integrity="sha384-sCI3dTBIJuqT6AwL++zH7qL8ZdKaHpxU43dDt9SyOzimtQ9eyRhkG3B7KMl6AO19"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <!-- And JQuery and Popper -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- My stylesheet -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-custom">
+            <a class="navbar-brand" href="#">IFTTT</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Discover
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Applets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Activity</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">
+                            <i class="fas fa-user"></i> User</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div id="welcome">
+        <h1 class="display-4" style="font-weight: 600;">Choose a Service</h1>
+        <p class="text-muted">Step 1 of 6</p>
+    </div>
+
+    <div id="items" class="row"></div>
+    <script src="../js/app.js"></script>
+    <script>
+        for (i = 0; i < list.length; i++) {
+            // defined elements to be created
+            let newUL = document.createElement("ul");
+            let newLI = document.createElement("li");
+            let newALink = document.createElement("a");
+            let newIcon = document.createElement("i");
+            // Give them class names for styling, additional col- information relevant to Bootstrap and responsiveness.
+            newUL.className = "list-item col-sm-4 col-md-3 col-lg-2";
+            newLI.className = "list-contents";
+            // Add custom styling to each ul based on list.colour
+            newUL.style.backgroundColor = list[i].colour;
+            // set I element to be different for each list[i].icon
+            newIcon.setAttribute('class', list[i].icon);
+            // Add inner HTML to Li to state name
+            newLI.innerHTML += "<h1>" + list[i].name + "</h1>" + "<br>";
+            // create an A element and href it to be based on individual link name and id
+            newALink.setAttribute('href', list[i].link + "?sid=" + list[i].id);
+            // add the A to each UL.
+            newUL.appendChild(newALink);
+            // append I to LI, and LI to A
+            newALink.appendChild(newLI).appendChild(newIcon);
+
+            // Take div id of items and append new UL data to it
+            let currentDiv = document.getElementById("items");
+            currentDiv.appendChild(newUL);
+
+        }
+    </script>
+</body>
+
+</html>
