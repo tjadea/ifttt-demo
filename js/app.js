@@ -1,5 +1,4 @@
 // Declare variables so.. create an object for list
-// Declare variables so.. create an object for list
 let list = [{
     id: 1,
     name: "Twitter",
